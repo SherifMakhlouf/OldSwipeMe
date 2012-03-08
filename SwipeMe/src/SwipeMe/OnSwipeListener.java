@@ -12,6 +12,7 @@ public abstract class OnSwipeListener implements OnTouchListener{
 	public final static int SWIPED_RIGHT = 2;
 	public final static int SWIPED_UP = 3;
 	public final static int SWIPED_DOWN = 4;
+	public final static int CLICKED = 5;
 	private int SWIPE_ACTION = 0;
 	private float firstTouchX = 0;
 	private float firstTouchY = 0;
@@ -40,33 +41,42 @@ public abstract class OnSwipeListener implements OnTouchListener{
 			//calculate the desplacment in the y axis
 			float dY = lastTouchY - firstTouchY;
 			
-			//Check if the movement is horizontally or vertically
-			if(Math.abs(dX) > Math.abs(dY))
+			final int pointerIndex = event.findPointerIndex(activePointerID);
+			if(firstTouchX == event.getX(activePointerID) && firstTouchY == event.getY(activePointerID))
 			{
-				// Swiped horizontally
-				if(dX > 0)
-				{
-					//Swiped Right
-					SWIPE_ACTION = SWIPED_RIGHT;
-				}
-				else
-				{
-					//Swiped Left
-					SWIPE_ACTION = SWIPED_LEFT;
-				}
+				//clicked
+				SWIPE_ACTION = CLICKED;
 			}
 			else
 			{
-				// Swiped vertically
-				if(dY > 0)
+				//Check if the movement is horizontally or vertically
+				if(Math.abs(dX) > Math.abs(dY))
 				{
-					// Swiped Down
-					SWIPE_ACTION = SWIPED_DOWN;
+					// Swiped horizontally
+					if(dX > 0)
+					{
+						//Swiped Right
+						SWIPE_ACTION = SWIPED_RIGHT;
+					}
+					else
+					{
+						//Swiped Left
+						SWIPE_ACTION = SWIPED_LEFT;
+					}
 				}
 				else
 				{
-					// Swiped Up
-					SWIPE_ACTION = SWIPED_UP;
+					// Swiped vertically
+					if(dY > 0)
+					{
+						// Swiped Down
+						SWIPE_ACTION = SWIPED_DOWN;
+					}
+					else
+					{
+						// Swiped Up
+						SWIPE_ACTION = SWIPED_UP;
+					}
 				}
 			}
 			

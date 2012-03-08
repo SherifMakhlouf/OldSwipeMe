@@ -45,7 +45,7 @@ public class SwipeMeActivity extends Activity {
 					//swiped down
 					Toast.makeText(getApplicationContext(), "Swiped Down", Toast.LENGTH_SHORT).show();
 					break;
-				default:
+				case CLICKED:
 					//clicked
 					Toast.makeText(getApplicationContext(), "clicked", Toast.LENGTH_SHORT).show();
 					break;
