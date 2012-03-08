@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 // importing the onSwipeListener
 import SwipeMe.OnSwipeListener;
 
@@ -30,15 +31,19 @@ public class SwipeMeActivity extends Activity {
 				{
 				case SWIPED_LEFT :
 					//swiped to left
+					Toast.makeText(getApplicationContext(), "Swiped Left", Toast.LENGTH_SHORT).show();
 					break;
 				case SWIPED_RIGHT :
 					//swiped to right
+					Toast.makeText(getApplicationContext(), "Swiped Right", Toast.LENGTH_SHORT).show();
 					break;
 				case SWIPED_UP :
 					//swiped up
+					Toast.makeText(getApplicationContext(), "Swiped Up", Toast.LENGTH_SHORT).show();
 					break;
 				case SWIPED_DOWN :
 					//swiped down
+					Toast.makeText(getApplicationContext(), "Swiped Down", Toast.LENGTH_SHORT).show();
 					break;
 				}
 			}
