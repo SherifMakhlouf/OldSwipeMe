@@ -22,47 +22,61 @@ public abstract class OnSwipeListener implements OnTouchListener{
 	public boolean onTouch(View v, MotionEvent event) {
 		if(event.getAction() == event.ACTION_DOWN)
 		{
+			//calculate the first touch position
 			final float x = event.getX();
 			final float y = event.getY();
 	        
 			firstTouchX = x;
 			firstTouchY = y;
-	        // Save the ID of this pointer
+	        // Save the ID of the active finger
 			activePointerID = event.getPointerId(0);
 
 		}
 		
 		if(event.getAction() == event.ACTION_UP)
 		{
-			float dx = lastTouchX - firstTouchX;
-			float dy = lastTouchY - firstTouchY;
-			if(Math.abs(dx) > Math.abs(dy))
+			//calculate the desplacment in the x axis
+			float dX = lastTouchX - firstTouchX;
+			//calculate the desplacment in the y axis
+			float dY = lastTouchY - firstTouchY;
+			
+			//Check if the movement is horizontally or vertically
+			if(Math.abs(dX) > Math.abs(dY))
 			{
-				if(dx > 0)
+				// Swiped horizontally
+				if(dX > 0)
 				{
+					//Swiped Right
 					SWIPE_ACTION = SWIPED_RIGHT;
 				}
 				else
 				{
+					//Swiped Left
 					SWIPE_ACTION = SWIPED_LEFT;
 				}
 			}
 			else
 			{
-				if(dy > 0)
+				// Swiped vertically
+				if(dY > 0)
 				{
-					SWIPE_ACTION = SWIPED_UP;
+					// Swiped Down
+					SWIPE_ACTION = SWIPED_DOWN;
 				}
 				else
 				{
-					SWIPE_ACTION = SWIPED_DOWN;
+					// Swiped Up
+					SWIPE_ACTION = SWIPED_UP;
 				}
 			}
+			
+			//call on Swipe which will be overridden
 			onSwipe(v , event);
 		}
 		if(event.getAction() == event.ACTION_MOVE)
 		{
 			 final int pointerIndex = event.findPointerIndex(activePointerID);
+			 //while moving calculate the last touch
 		        final float x = event.getX(pointerIndex);
 		        final float y = event.getY(pointerIndex);
 		        
@@ -74,11 +88,18 @@ public abstract class OnSwipeListener implements OnTouchListener{
 		return true;
 	}
 
+	/*
+	 * Returns the direction which the view is swiped to
+	 */
 	public  int getSwipeTo()
 	{
+		
 		return SWIPE_ACTION;
 	}
 	
+	/*
+	 * Will be called after the user leave the View object
+	 */
 	abstract public void onSwipe(View v, MotionEvent event);
 
 	
